@@ -11,13 +11,20 @@
         http://www.springframework.org/schema/context
         http://www.springframework.org/schema/context/spring-context.xsd">
 
+	<context:annotation-config/>
 	<!-- 表示annotation配置到哪些包寻找 -->
 	<context:component-scan base-package="org.yamikaze.spring.mvc.study.controller"/>
+
 	<!--表示支持annotation配置  -->
 	<mvc:annotation-driven/>
-	
+
+	<!--beanId 作为访问Controller的URI-->
+	<bean id="/primary/controller" class="org.yamikaze.spring.mvc.study.controller.PrimaryController"/>
+
+	<!--静态资源-->
 	<mvc:resources location="/resources/" mapping="/resources/**"/>
-	
+
+	<!--MVC 视图解析器-->
 	<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 		 <property name="prefix" value="/WEB-INF/jsp/"/>
 		 <property name="suffix" value=".jsp"/>
