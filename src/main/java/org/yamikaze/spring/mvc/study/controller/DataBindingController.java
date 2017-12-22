@@ -32,4 +32,11 @@ public class DataBindingController {
         return "ok";
     }
 
+    @RequestMapping("/onlyDate")
+    @ResponseBody
+    public String onlyDate(Date date) {
+        System.out.println(date);
+        return "ok";
+    }
+
 }

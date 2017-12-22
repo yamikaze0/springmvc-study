@@ -11,6 +11,14 @@
         http://www.springframework.org/schema/context
         http://www.springframework.org/schema/context/spring-context.xsd">
 
+	<!--<bean class="org.springframework.web.servlet.handler.BeanNameUrlHandlerMapping">
+		<property name="interceptors">
+			<list>
+				<ref bean="timeInvokeInterceptor"/>
+			</list>
+		</property>
+	</bean>-->
+
 	<!--Spring MVC原始的Controller写法 start-->
 	<!--beanId 作为访问Controller的URI-->
 	<bean id="/primary/controller" class="org.yamikaze.spring.mvc.study.controller.PrimaryController"/>
@@ -40,14 +48,20 @@
 
 	<!--Spring MVC原始的Controller写法 end-->
 
+	<bean id="bindingInitialize" class="org.yamikaze.spring.mvc.study.converter.MyWebBindingInitializer"/>
 	<bean class=" org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter">
 		<property name="webBindingInitializer" ref="bindingInitialize">
 		</property>
 	</bean>
+	<mvc:interceptors>
+		<mvc:interceptor>
+			<mvc:mapping path="/**"/>
+			<ref bean="timeInvokeInterceptor"/>
+		</mvc:interceptor>
+	</mvc:interceptors>
 
 	<context:annotation-config/>
 	<context:component-scan base-package="org.yamikaze.spring.mvc.study"/>
-	<bean id="bindingInitialize" class="org.yamikaze.spring.mvc.study.converter.MyWebBindingInitializer"/>
 
 	<!--表示支持annotation配置  -->
 	<mvc:annotation-driven/>
