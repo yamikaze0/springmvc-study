@@ -11,15 +11,46 @@
         http://www.springframework.org/schema/context
         http://www.springframework.org/schema/context/spring-context.xsd">
 
+	<!--Spring MVC原始的Controller写法 start-->
+	<!--beanId 作为访问Controller的URI-->
+	<bean id="/primary/controller" class="org.yamikaze.spring.mvc.study.controller.PrimaryController"/>
+	<bean id="/primaryV2/controller" class="org.yamikaze.spring.mvc.study.controller.PrimaryControllerV2"/>
+
+	<!--不进行功能处理的编辑器, 访问parameter/controller时直接返回视图basic/cf
+		好处是不用进行硬编码,例如帮助页面等
+	-->
+	<bean id="/parameter/controller" class="org.springframework.web.servlet.mvc.ParameterizableViewController">
+		<property name="viewName" value="basic/cf"/>
+	</bean>
+
+	<bean id="/url/**" class="org.springframework.web.servlet.mvc.UrlFilenameViewController">
+		<!--不能进行prefix和suffix注入，除非有其他前缀，比如，返回xxx/url/xx文件
+		    这一点与上面的ParameterizableViewController, 只不过不需要向上面那样注入视图名称，
+		    这儿访问的路径就是视图名称
+		-->
+		<!--后面的匹配的pattern相当于返回的ModelAndView的视图名称
+			例如访问/url/index, 正常情况下返回是/WEB-INF/jsp/index.jsp
+			但是如果想指定位置，加上前缀和后缀，例如前缀url/，返回的就是/WEB-INF/jsp/url/index.jsp
+		-->
+			<property name="prefix" value="url/"/>
+		<!--
+			<property name="suffix" value=".jsp"/>
+		-->
+	</bean>
+
+	<!--Spring MVC原始的Controller写法 end-->
+
+	<bean class=" org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter">
+		<property name="webBindingInitializer" ref="bindingInitialize">
+		</property>
+	</bean>
+
 	<context:annotation-config/>
-	<!-- 表示annotation配置到哪些包寻找 -->
-	<context:component-scan base-package="org.yamikaze.spring.mvc.study.controller"/>
+	<context:component-scan base-package="org.yamikaze.spring.mvc.study"/>
+	<bean id="bindingInitialize" class="org.yamikaze.spring.mvc.study.converter.MyWebBindingInitializer"/>
 
 	<!--表示支持annotation配置  -->
 	<mvc:annotation-driven/>
-
-	<!--beanId 作为访问Controller的URI-->
-	<bean id="/primary/controller" class="org.yamikaze.spring.mvc.study.controller.PrimaryController"/>
 
 	<!--静态资源-->
 	<mvc:resources location="/resources/" mapping="/resources/**"/>

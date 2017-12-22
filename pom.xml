@@ -116,6 +116,13 @@
             <version>1.7.9</version>
         </dependency>
 
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-log4j12</artifactId>
+            <version>1.7.9</version>
+        </dependency>
+
+
         <!--spring所依赖logging  -->
         <dependency>
             <groupId>commons-logging</groupId>
