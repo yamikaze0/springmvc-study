@@ -48,11 +48,38 @@
 
 	<!--Spring MVC原始的Controller写法 end-->
 
+	<!--低版本的Spring MVC写法, 如果有这种写法，下面的mvc:annotation-driven配置的resolver将不起作用
+		这也意味着PropertyEditor不能正常工作, 可以使用MessageConverter代替
+	-->
+	<!--
 	<bean id="bindingInitialize" class="org.yamikaze.spring.mvc.study.converter.MyWebBindingInitializer"/>
 	<bean class=" org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter">
-		<property name="webBindingInitializer" ref="bindingInitialize">
+		<property name="webBindingInitializer" ref="bindingInitialize"/>
+		<property name="argumentResolvers">
+			<list>
+				<ref bean="userParameterResolver"/>
+			</list>
 		</property>
 	</bean>
+	-->
+
+	<!--表示支持annotation配置 指定转换器 -->
+	<mvc:annotation-driven conversion-service="conversionService">
+		<mvc:argument-resolvers>
+			<ref bean="userParameterResolver"/>
+		</mvc:argument-resolvers>
+	</mvc:annotation-driven>
+
+	<!--配置转换器-->
+	<bean id="conversionService"
+		  class="org.springframework.format.support.FormattingConversionServiceFactoryBean">
+		<property name="formatters">
+			<list>
+				<bean class="org.yamikaze.spring.mvc.study.converter.DateMessageConverter"/>
+			</list>
+		</property>
+	</bean>
+
 	<mvc:interceptors>
 		<mvc:interceptor>
 			<mvc:mapping path="/**"/>
@@ -62,9 +89,6 @@
 
 	<context:annotation-config/>
 	<context:component-scan base-package="org.yamikaze.spring.mvc.study"/>
-
-	<!--表示支持annotation配置  -->
-	<mvc:annotation-driven/>
 
 	<!--静态资源-->
 	<mvc:resources location="/resources/" mapping="/resources/**"/>

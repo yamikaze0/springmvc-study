@@ -1,9 +1,14 @@
 package org.yamikaze.spring.mvc.study.converter;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.util.StringUtils;
 import org.yamikaze.spring.mvc.study.constants.DateFormatPattern;
+import org.yamikaze.spring.mvc.study.constants.DatePatternEnum;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -24,7 +29,7 @@ public final class DateConverterCache {
 
     }
 
-    public static void setDatePatternCache(SimpleDateFormat sdf) {
+    private static void setDatePatternCache(SimpleDateFormat sdf) {
         if(sdf == null || StringUtils.isEmpty(sdf.toPattern()) ||
                 dateCache.containsKey(sdf.toPattern())) {
             return;
@@ -40,5 +45,28 @@ public final class DateConverterCache {
             sdf = dateCache.get(DateFormatPattern.DATETIME);
         }
         return sdf;
+    }
+
+    public static Date getDate(String text, String pattern) {
+        SimpleDateFormat sdf;
+        java.util.Date date = null;
+        try {
+            sdf = getSimpleDateFormat(pattern);
+            if(sdf == null) {
+                return null;
+            }
+            date = sdf.parse(text);
+        } catch (ParseException e) {
+            return parseFail(text, pattern);
+        }
+        return date;
+    }
+
+    private static Date parseFail(String text, String pattern) {
+        String nextPattern = DatePatternEnum.getNextPatternByPattern(pattern);
+        if(StringUtils.isEmpty(nextPattern)) {
+            return null;
+        }
+        return getDate(text, nextPattern);
     }
 }

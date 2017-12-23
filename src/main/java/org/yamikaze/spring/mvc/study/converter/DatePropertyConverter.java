@@ -6,8 +6,6 @@ import org.springframework.util.StringUtils;
 import org.yamikaze.spring.mvc.study.constants.DatePatternEnum;
 
 import java.beans.PropertyEditorSupport;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
@@ -34,39 +32,21 @@ public class DatePropertyConverter extends PropertyEditorSupport {
 
     /**
      * 将String 类型转换为Object类型
+     *
      * @param text
      * @throws IllegalArgumentException
      */
     @Override
     public void setAsText(String text) throws IllegalArgumentException {
-        if(StringUtils.isEmpty(text)) {
+        if (StringUtils.isEmpty(text)) {
             return;
         }
-        Date date = getDate(text, DatePatternEnum.getFirstPattern());
+        Date date = DateConverterCache.getDate(text, DatePatternEnum.getFirstPattern());
+        if (date == null) {
+            logger.warn("解析时间失败!, 时间字符串为[" + text + "]");
+            return;
+        }
         setValue(date);
     }
 
-    private Date getDate(String text, String pattern) {
-        SimpleDateFormat sdf;
-        Date date = null;
-        try {
-            sdf = DateConverterCache.getSimpleDateFormat(pattern);
-            if(sdf == null) {
-                return null;
-            }
-            date = sdf.parse(text);
-        } catch (ParseException e) {
-            return parseFail(text, pattern);
-        }
-        return date;
-    }
-
-    private Date parseFail(String text, String pattern) {
-        String nextPattern = DatePatternEnum.getNextPatternByPattern(pattern);
-        if(StringUtils.isEmpty(nextPattern)) {
-            logger.warn("解析时间失败!, 时间字符串为[" + text + "]");
-            return null;
-        }
-        return getDate(text, nextPattern);
-    }
 }
