@@ -1,7 +1,5 @@
 package org.yamikaze.spring.mvc.study.converter;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.util.StringUtils;
 import org.yamikaze.spring.mvc.study.constants.DateFormatPattern;
 import org.yamikaze.spring.mvc.study.constants.DatePatternEnum;
@@ -22,10 +20,10 @@ public final class DateConverterCache {
             new HashMap<>(8);
 
     static {
-        setDatePatternCache(new SimpleDateFormat(DateFormatPattern.DATE));
-        setDatePatternCache(new SimpleDateFormat(DateFormatPattern.DATETIME));
-        setDatePatternCache(new SimpleDateFormat(DateFormatPattern.DATE_OF_SLASH));
-        setDatePatternCache(new SimpleDateFormat(DateFormatPattern.DATETIME_OF_SLASH));
+
+        for(DatePatternEnum patternEnum : DatePatternEnum.values()) {
+            setDatePatternCache(new SimpleDateFormat(patternEnum.getPattern()));
+        }
 
     }
 
