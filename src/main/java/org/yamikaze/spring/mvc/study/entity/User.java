@@ -1,7 +1,7 @@
 package org.yamikaze.spring.mvc.study.entity;
 
 /**
- * @author qinluo
+ * @author yamikaze
  * @date 2017/12/21
  */
 public class User {

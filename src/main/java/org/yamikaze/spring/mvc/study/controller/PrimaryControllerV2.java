@@ -8,7 +8,7 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  * 另一种方式是继承AbstractController，并且实现handleRequestInternal方法
- * @author qinluo
+ * @author yamikaze
  * @date 2017/12/22
  */
 public class PrimaryControllerV2 extends AbstractController {

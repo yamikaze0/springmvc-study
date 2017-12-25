@@ -7,7 +7,7 @@ import org.yamikaze.spring.mvc.study.annotation.UserAnnotation;
 import org.yamikaze.spring.mvc.study.entity.User;
 
 /**
- * @author qinluo
+ * @author yamikaze
  * @date 2017/12/23
  */
 @Controller

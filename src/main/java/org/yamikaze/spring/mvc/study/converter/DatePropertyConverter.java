@@ -15,7 +15,7 @@ import java.util.Date;
  * 1、可以继承AbstractCommandController,但这种方式缺点是每个Controller都需要绑定
  * 2、实现WebBindingInitializer批量进行绑定
  *    然后在配置文件中注入
- * @author qinluo
+ * @author yamikaze
  * @date 2017/12/22
  */
 public class DatePropertyConverter extends PropertyEditorSupport {

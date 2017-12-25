@@ -2,7 +2,7 @@ package org.yamikaze.spring.mvc.study.constants;
 
 /**
  * 时间格式
- * @author qinluo
+ * @author yamikaze
  * @date 2017/12/22
  */
 public interface DateFormatPattern {

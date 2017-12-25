@@ -7,7 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * @author qinluo
+ * @author yamikaze
  * @date 2017/12/22
  */
 public class PrimaryController implements Controller{

@@ -1,7 +1,7 @@
 package org.yamikaze.spring.mvc.study.constants;
 
 /**
- * @author qinluo
+ * @author yamikaze
  * @date 2017/12/22
  */
 public enum DatePatternEnum {

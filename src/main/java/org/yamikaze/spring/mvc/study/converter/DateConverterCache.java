@@ -11,7 +11,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * @author qinluo
+ * @author yamikaze
  * @date 2017/12/22
  */
 public final class DateConverterCache {

@@ -9,7 +9,7 @@ import java.util.Date;
 import java.util.Locale;
 
 /**
- * @author qinluo
+ * @author yamikaze
  * @date 2017/12/23
  */
 public class DateMessageConverter implements Formatter<Date> {

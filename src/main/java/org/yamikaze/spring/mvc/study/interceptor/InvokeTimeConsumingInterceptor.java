@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * 1、直接实现HandlerInterceptor接口
  * 2、继承HandlerInterceptorAdapter，覆盖自己想要的方法
- * @author qinluo
+ * @author yamikaze
  * @date 2017/12/23
  */
 @Component("timeInvokeInterceptor")

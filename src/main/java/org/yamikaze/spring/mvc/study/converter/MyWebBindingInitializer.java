@@ -7,7 +7,7 @@ import org.springframework.web.context.request.WebRequest;
 import java.util.Date;
 
 /**
- * @author qinluo
+ * @author yamikaze
  * @date 2017/12/22
  */
 public class MyWebBindingInitializer implements WebBindingInitializer {

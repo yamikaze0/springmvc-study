@@ -5,7 +5,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 import java.util.Date;
 
 /**
- * @author qinluo
+ * @author yamikaze
  * @date 2017/12/22
  */
 public class DateModel {

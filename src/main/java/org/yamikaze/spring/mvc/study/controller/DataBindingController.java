@@ -10,7 +10,7 @@ import org.yamikaze.spring.mvc.study.entity.DateModel;
 import java.util.Date;
 
 /**
- * @author qinluo
+ * @author yamikaze
  * @date 2017/12/22
  */
 @Controller
